@@ -1,0 +1,74 @@
+-- cria o banco de dados
+
+create database livraria;
+
+-- cria tabela no banco de dados
+
+create table livros(
+id_livro int not null auto_increment,
+titulo_do_livro varchar (45),
+autor varchar (45),
+ano_publicacao int,
+preco int,
+quantidade_estoque int,
+primary key(id_livro)
+);
+
+-- preenche as colunas da tabela
+
+insert into livros (titulo_do_livro, autor, ano_publicacao, preco, quantidade_estoque)
+values ("O senhor dos aneis", "Tolkien", 1954, 200, 1000);
+
+-- mostra a tabela inteira
+
+select * from livros;
+
+-- preenche as colunas da tabela
+
+insert into livros (titulo_do_livro, autor, ano_publicacao, preco, quantidade_estoque)
+values ("dune", "frank herbert", 1965, 180, 1000);
+
+insert into livros (titulo_do_livro, autor, ano_publicacao, preco, quantidade_estoque)
+values ("narnia","C.S Liwis", 1950, 180, 1000);
+
+-- altera o tipo de uma coluna ou o nome
+
+alter table livros change quantidade_estoque estoque varchar(45);
+
+-- mudar valor espesifico de uma coluna de um produto na tabela
+
+update livros
+set estoque = 2000
+where id_livro = 1;
+
+-- filtra a consulta para o parametro desejado monstrando todos os atributos do produto
+
+select * from livros where ano_publicacao >= 1954;
+
+-- filtra a consulta para o parametro desejado monstrando colunas esquecificas da tabela
+
+ select titulo_do_livro, ano_publicacao where ano_publicacao >= 1954;
+ 
+ insert into livros (titulo_do_livro, autor, ano_publicacao, preco, estoque)
+ values ("harry potter","J.K Rowling",1997, 120, 500);
+ 
+ select * from livros;
+
+-- filtra a consulta para o parametro desejado monstrando colunas esquecificas da tabela
+
+select * from livros where preco <= 120;
+
+update livros
+set preco = 150
+where id_livro = 4;
+
+-- somar o total dos precos da coluna precos
+
+SELECT SUM(preco)
+FROM livros;
+
+-- me volta o maior preÃ§o dos produtos na tabela, incluindo titulo, autor etc...
+
+SELECT titulo_do_livro, autor, ano_publicacao, preco, estoque
+FROM livros
+WHERE preco = (SELECT MAX(preco) FROM livros);
